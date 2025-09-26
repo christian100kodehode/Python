@@ -1,0 +1,14 @@
+PetName,Race,IsMammal
+Bella ,Dog,yes
+Charlie,Dog,yes
+Max,Cat,yes
+Django,Lizard,nei
+Luna,,Cat,yes
+Rocky,Hamster,yes
+Nemo,Fish,  no
+Polly,Bird,no
+Spike,Lizard,no
+Daisy,Hamster,yes
+Shadow,Dog,ja
+Milo,Cat,yes
+Coco,Bird,no
