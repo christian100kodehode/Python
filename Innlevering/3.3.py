@@ -40,7 +40,7 @@ def rgb_to_hex(r : int, g : int, b : int):
         return f"\nHex code is #{r:02X}{g:02X}{b:02X}"
 
 
-#enter  r g b numbers in the try to check:
+#enter r g b numbers in the try to check:
 try:
     print(rgb_to_hex(253, 3, 2))  # Valid input
 except NameError as e:

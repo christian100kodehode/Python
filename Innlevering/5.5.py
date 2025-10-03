@@ -23,11 +23,11 @@ def parse_csv_loans(filename: str) -> list[dict]:
 
     #Check if file exists
     if not os.path.isfile(filename):
-        print(f"Error: File '{filename}' does not exist.")
+        print(f"Error: File \"{filename}\" does not exist.")
         return
 
     try:
-        with open(filename, mode='r', encoding='utf-8') as f:
+        with open(filename, mode="r", encoding="utf-8") as f:
             reader = csv.reader(f)
             header = next(reader)  # Read header
             if len(header) != 8:
@@ -39,7 +39,7 @@ def parse_csv_loans(filename: str) -> list[dict]:
                 
                 #Validate field count
                 if len(row) != 8:
-                    errors.append(f"Error in line {index}: Incorrect number of fields ({len(row)}). Expected 8. Line content: {','.join(row)}")
+                    errors.append(f"Error in line {index}: Incorrect number of fields ({len(row)}). Expected 8. Line content: {",".join(row)}")
                     continue
 
                 try:
@@ -48,24 +48,24 @@ def parse_csv_loans(filename: str) -> list[dict]:
 
                     # Validate non-empty strings
                     if not first_name or not last_name or not book_title or not category:
-                        errors.append(f"Error in line {index}: Empty string in FirstName, LastName, BookTitle, or Category. Line content: {','.join(row)}")
+                        errors.append(f"Error in line {index}: Empty string in FirstName, LastName, BookTitle, or Category. Line content: {",".join(row)}")
                         continue
 
                     #Validate date
                     try:
-                        datetime.strptime(loan_date, '%d/%m/%Y')
+                        datetime.strptime(loan_date, "%d/%m/%Y")
                     except ValueError:
-                        errors.append(f"Error in line {index}: Invalid LoanDate format. Expected DD/MM/YYYY. Got: {loan_date}. Line content: {','.join(row)}")
+                        errors.append(f"Error in line {index}: Invalid LoanDate format. Expected DD/MM/YYYY. Got: {loan_date}. Line content: {",".join(row)}")
                         continue
 
                     #Validate loan days
                     try:
                         loan_days = int(loan_days)
                         if loan_days < 0:
-                            errors.append(f"Error in line {index}: LoanAmountofDays must be non-negative. Got: {loan_days}. Line content: {','.join(row)}")
+                            errors.append(f"Error in line {index}: LoanAmountofDays must be non-negative. Got: {loan_days}. Line content: {",".join(row)}")
                             continue
                     except ValueError:
-                        errors.append(f"Error in line {index}: LoanAmountofDays must be integers. Got: {loan_days}. Line content: {','.join(row)}")
+                        errors.append(f"Error in line {index}: LoanAmountofDays must be integers. Got: {loan_days}. Line content: {",".join(row)}")
                         continue
 
                     #Validate extended
@@ -73,15 +73,15 @@ def parse_csv_loans(filename: str) -> list[dict]:
                         
                         extended_days = int(extended_days)
                         if extended_days < 0:
-                            errors.append(f"Error in line {index}: ExtendedLoan must be non-negative. Got: {extended_days}. Line content: {','.join(row)}")
+                            errors.append(f"Error in line {index}: ExtendedLoan must be non-negative. Got: {extended_days}. Line content: {",".join(row)}")
                             continue
                     except ValueError:
-                        errors.append(f"Error in line {index}: ExtendedLoan must be integers. Got: {extended_days}. Line content: {','.join(row)}")
+                        errors.append(f"Error in line {index}: ExtendedLoan must be integers. Got: {extended_days}. Line content: {",".join(row)}")
                         continue
                     
                     # Validate non-empty book title
                     if not book_title:
-                        errors.append(f"Error in line {index}: Empty BookTitle. Line content: {','.join(row)}")
+                        errors.append(f"Error in line {index}: Empty BookTitle. Line content: {",".join(row)}")
                         continue
 
                     # Count the book
@@ -91,7 +91,7 @@ def parse_csv_loans(filename: str) -> list[dict]:
                         book_counts[book_title] = 1
 
                 except Exception as e:
-                    errors.append(f"Unexpected error in line {index}: {e}. Line content: {','.join(row)}")
+                    errors.append(f"Unexpected error in line {index}: {e}. Line content: {",".join(row)}")
 
 
 

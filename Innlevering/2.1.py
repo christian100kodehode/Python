@@ -1,8 +1,7 @@
 # 2.1 Test 
-
 # Check valid date
-
 #Find out if a leap year or not, leap year can be divided by 4, and not by 100 or 400
+
 def is_leap_year(year):
     return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
 
