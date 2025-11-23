@@ -15,22 +15,15 @@ def function_check_date(func, date_str):
         
         # Date check
         if not (1 <= month <= 12 and 1 <= day <= 31 and year > 0):
-            print(f"Invalid date: {date_str}")
             return False
         
-        result = func(year)
-        print(f"Date: {date_str} is leap Year: {result}")
-        return result
+        # Apply the provided function to the year
+        return func(year)
     # If not correct date, return False
     except ValueError:
-        print(f"Invalid format: '{date_str}'. Use DD/MM/YYYY")
-        return False 
-
-
-print("LEAP YEAR & MORE TESTER")
-print ("")
+        return False
 
 # Test case:
-function_check_date(is_leap_year, "29/08/2028") 
-
-
+date = "21/11/2025"
+result = function_check_date(is_leap_year, date)
+print(f"Is the year in {date} a leap year? {result}")

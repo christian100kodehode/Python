@@ -1,10 +1,8 @@
-# Oppgave 5.4
-# Lag en funksjon som lister opp alle bøkene som ikke ble levert tilbake.
-# Returner en liste med navnene på bøkene og hvem som lånte dem og skriv
-# ut svaret.
-
-
-# New added check to view errors or just skip listing them:
+# Oppgave 5.5
+# Skriv en funksjon som finner hvilke bøker som har blitt lånt flest ganger.
+# Funksjonen skal returnere en oversikt over boktitlene og antallet ganger de
+# har blitt l˚ant ut. Hvis flere bøker har blitt l˚ant ut like mange ganger, skal
+# de sorteres alfabetisk. Skriv ut svaret.
 
 import csv
 from datetime import datetime
@@ -17,7 +15,7 @@ def parsed_bool(input_str: str) -> bool:
 
 def parse_csv_loans(filename: str) -> list[dict]:
 
-    not_returned = []
+    book_counts = {}
 
     # Error checking and printing lines with error    
     errors = []
@@ -80,15 +78,17 @@ def parse_csv_loans(filename: str) -> list[dict]:
                     except ValueError:
                         errors.append(f"Error in line {index}: ExtendedLoan must be integers. Got: {extended_days}. Line content: {",".join(row)}")
                         continue
-
-                    #Validate boolean returned if correct or not
-                    if returned.lower() not in ("ja", "nei"):
-                        errors.append(f"Error in line {index}: {e}. Line content: {",".join(row)}")
-                        continue
                     
-                    #Add lines to list that have false in the boolean check ("nei")
-                    if not parsed_bool(returned):
-                        not_returned.append(f"{first_name} {last_name}: {book_title}.")
+                    # Validate non-empty book title
+                    if not book_title:
+                        errors.append(f"Error in line {index}: Empty BookTitle. Line content: {",".join(row)}")
+                        continue
+
+                    # Count the book
+                    if book_title in book_counts:
+                        book_counts[book_title] += 1
+                    else:
+                        book_counts[book_title] = 1
 
                 except Exception as e:
                     errors.append(f"Unexpected error in line {index}: {e}. Line content: {",".join(row)}")
@@ -99,36 +99,21 @@ def parse_csv_loans(filename: str) -> list[dict]:
         print(f"Error reading file: {e}")
         return
 
-# list errors only if user want to see them, if errors excists and show error is True
-    if errors and show_error:
+    if errors:
         print(f"\nProcessed with {len(errors)} error(s):")
         for error in errors:
             print(error)
-# if 0 errors and not Y selected, show message 0 errors. Else list number of errors in filename but not list them.
-    else:
-        print(" ")
-        if len(errors) == 0 and show_error == False:
-            print(f"No Errors. Press Y next time to see if any error.")
-        else:
-            print(f"Not showing the {len(errors)} errors in file: {filename}. Press Y next time to list entries with error.")
 
-    return  not_returned
+    return book_counts
 
-# Check if you want to see if any errors in file, if no errors it will show 0. If errors excist it will show amount but not list if not chosen Y (anykey to skip listing).
-print (" ")
-show_error = input("Show errors?(Y or anykey to skip):").upper()
 
-if show_error == "Y":
-    show_error = True
-else:
-    show_error = False
+
 
 if __name__ == "__main__":
     filename = "bokutlån.csv"
-    #unpack functions
-    not_returned = parse_csv_loans(filename)
-    print("\nBooks not returned:")
-    
-    for entry in not_returned:
-        print(entry)
-
+    book_counts = parse_csv_loans(filename)
+    print("\nBooks loaned most often:")
+    #sort books by loan count and alphabetically on the title if same amount
+    sorted_books = sorted(book_counts.items(), key=lambda x: (-x[1], x[0]))
+    for title, count in sorted_books:
+        print(f"{title}: {count}")

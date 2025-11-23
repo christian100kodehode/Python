@@ -18,32 +18,30 @@ import os
 import random
 import string
 
-# define function that takes four parameters, file size 0 is default
-def create_folder_and_files(folder_name: str, number_files: int, extensions: list[str], file_size: int=0):
+def create_folder_and_files(folder_name, number_files, extensions, file_size=0):
 
     try:
-        # Create the folder if it doesn"t exist, if exist just keep using it (True) without error
+        # Create the folder if it doesn"t exist
         os.makedirs(folder_name, exist_ok=True)
-        print(f"\nFolder to be used: {folder_name}")
+        print(f"Created folder: {folder_name}")
 
-        print(f"\nCreating {number_files} files:\n")
-        # loop through the range entered and stop at number_files value
-        for i in range(number_files):
+        # Generate random files
+        for _ in range(number_files):
             # Create a random files with length between 5 and 10
-            file_name = "".join(random.choices(string.ascii_lowercase + string.digits, k=random.randint(5,10)))
+            file_name = "".join(random.choices(string.ascii_lowercase + string.digits, k=random.randrange(5,10)))
             # Randomly select an extension
             extension = random.choice(extensions)
             # Combine folder path, file name, and extension
             file_path = os.path.join(folder_name, f"{file_name}{extension}")
-            # open file in binary write mode (wb)
+            
+            # Create the file
             with open(file_path, "wb") as f:
                 if file_size > 0:
                     f.write(os.urandom(file_size))
             print(f"Created file: {file_path}")
-        # return True if all is finished
+
         return True
-    
-    # catch any error might occurring and return False
+
     except Exception as e:
         print(f"Error: {e}")
         return False
@@ -54,9 +52,9 @@ number_files = 30  # Number of files to create
 extensions = [".txt", ".log", ".csv"]  # List of extensions
 file_size = 0  # File size
 
-# Call function and print result, if true (success) completed else fail and print failed message
+# Create files
 success = create_folder_and_files(folder_name, number_files, extensions, file_size)
 if success:
-    print("\nOperation completed successfully!\n")
+    print("Operation completed successfully!")
 else:
-    print("\nOperation failed.")
+    print("Operation failed.")

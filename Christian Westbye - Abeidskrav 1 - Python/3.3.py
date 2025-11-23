@@ -17,8 +17,8 @@
 #green parametere har ugyldig verdi.
 
 def rgb_to_hex(r : int, g : int, b : int):        
-    print(f"\nYou entered values: {{'r': {r}, 'g': {g}, 'b': {b}}}.")
-    #loop through all and check if value is a whole number and not a string
+    print(f"You entered values: {{'r': {r}, 'g': {g}, 'b': {b}}}.")
+    #check if value is a whole number and not a string
     if not all(isinstance(n, int)for n in (r,g,b)):
         print("\nError. Please only use numbers.")
         return ""
@@ -26,25 +26,22 @@ def rgb_to_hex(r : int, g : int, b : int):
     #make a empty list to store errors, and appent to the empty list if occurs
     errors = []
     if r < 0 or r >= 256:
-        errors.append(f"\nCheck value for r. You entered {r}.")
+        errors.append(f"Check value for r. You entered {r}.")
     if g < 0 or g >= 256:
-        errors.append(f"\nCheck value for g. You entered {g}.")
+        errors.append(f"Check value for g. You entered {g}.")
     if b < 0 or b >= 256:
-        errors.append(f"\nCheck value for b. You entered {b}.")
-
+        errors.append(f"Check value for b. You entered {b}.")
     if errors:
         for error in errors:
             print(f"{error}")
         print("\nError! RGB values must be be between 0 and 255")
         return ""
-   
+    else:
+        return f"\nHex code is #{r:02X}{g:02X}{b:02X}"
 
-    return f"\nHex code is #{r:02X}{g:02X}{b:02X}\n"
-
-# Values to use
-r = 22
-g = 22
-b = 55
 
 #enter r g b numbers in the try to check:
-print(rgb_to_hex(r, g, b))
+try:
+    print(rgb_to_hex(253, 3, 2))  # Valid input
+except NameError as e:
+    print(f"Error: {e}.")

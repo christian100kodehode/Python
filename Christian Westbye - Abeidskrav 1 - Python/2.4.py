@@ -8,11 +8,3 @@ my_dict = {"Cecilie": {"age": 28},"Bjørn": {"age": 30},"Tor": {"age": 24},"Anna
 sorted_dict = dict(sorted(my_dict.items(), key=lambda x: x[1]["age"], reverse=True))
 
 print(sorted_dict)
-
-print(" ")
-print("Assignment 2.4")
-sorted_list_age = sorted(name_age_dict.items(), key=lambda item: item[1], reverse=True)
-# create new dictionary from sorted list with values (name, age)
-sorted_age_dict = {name: age for name, age in sorted_list_age}
-print("Print of dictionary sorted by age:")
-print(sorted_age_dict)

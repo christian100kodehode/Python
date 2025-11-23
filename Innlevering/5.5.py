@@ -4,6 +4,10 @@
 # har blitt l˚ant ut. Hvis flere bøker har blitt l˚ant ut like mange ganger, skal
 # de sorteres alfabetisk. Skriv ut svaret.
 
+
+
+# New added check to view errors or just skip listing them:
+
 import csv
 from datetime import datetime
 import os
@@ -99,14 +103,30 @@ def parse_csv_loans(filename: str) -> list[dict]:
         print(f"Error reading file: {e}")
         return
 
-    if errors:
+# list errors only if user want to see them, if errors excists and show error is True
+    if errors and show_error:
         print(f"\nProcessed with {len(errors)} error(s):")
         for error in errors:
             print(error)
+# if 0 errors and not Y selected, show message 0 errors. Else list number of errors in filename but not list them.
+    else:
+        print(" ")
+        if len(errors) == 0 and show_error == False:
+            print(f"No Errors. Press Y next time to see if any error.")
+        else:
+            print(f"Not showing the {len(errors)} errors in file: {filename}. Press Y next time to list entries with error.")
 
     return book_counts
 
 
+# Check if you want to see if any errors in file, if no errors it will show 0. If errors excist it will show amount but not list if not chosen Y (anykey to skip listing).
+print (" ")
+show_error = input("Show errors?(Y or anykey to skip):").upper()
+
+if show_error == "Y":
+    show_error = True
+else:
+    show_error = False
 
 
 if __name__ == "__main__":

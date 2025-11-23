@@ -52,7 +52,7 @@ def parse_date(date_str):
         day, month, year = map(int, date_str.split("/"))
         return day, month, year
     except ValueError:
-        return None 
+        return None  # Return None if invalid format or not a number
 
 # Main program to accept user input
 def main():
@@ -88,10 +88,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-# ___________________________________________
-# OLD CODE FROM TRY 1:
-
 # Example using default import datetime
 # from datetime import datetime
 
@@ -118,6 +114,4 @@ if __name__ == "__main__":
 # date_format_example = "%d/%m/%Y"
 
 
-# print(f"Days unil {date_stop2}:\n   {find_days_between(date_start2, date_stop2, date_format_example )} days.")
-
-# ___________________________________________  
+# print(f"Days unil {date_stop2}:\n   {find_days_between(date_start2, date_stop2, date_format_example )} days.")      
